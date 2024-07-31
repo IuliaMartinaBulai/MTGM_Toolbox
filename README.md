@@ -19,7 +19,8 @@ The algorithms implemented here are described in detail in:
 
 
 GETTING STARTED
-Run
+
+Run 
 
 >> mtgm_demo0: This demo computes the weighted solution of a VIE.
 
@@ -45,8 +46,10 @@ Run
 
 
 -The files argselectAssign.m argselectCheck.m are part of Spectral Graph Wavelet Transform (SGWT)  toolbox and can be downloaded at page: https://wiki.epfl.ch/sgwt
+
 -The file gaussq.m is the result of a translation of the fortran procedure http://www.netlib.org/go/gaussq.f
--The file class1.m . 
+
+-The file class1.m 
 
 License : 
 
