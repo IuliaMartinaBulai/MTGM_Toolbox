@@ -84,3 +84,5 @@ xlabel('Time (days)')
 ylabel('Cumulative number')
 saveas(gcf, 'Cum_numb_demo2', 'fig');
 saveas(gcf, 'Cum_numb_demo2', 'epsc');
+
+cd ..\..
