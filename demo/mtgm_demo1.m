@@ -87,4 +87,6 @@ ylabel('Cumulative number')
 saveas(gcf, 'Cum_numb_demo1', 'fig');
 saveas(gcf, 'Cum_numb_demo1', 'epsc');
 
+cd ..\..
+
 
