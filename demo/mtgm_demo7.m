@@ -136,3 +136,5 @@ legend('Without treatment','Dose = 5mg','Dose = 10mg','Dose = 20mg',...
 saveas(gcf, 'Cum_numb_demo7', 'fig');
 saveas(gcf, 'Cum_numb_demo7', 'epsc');
 
+cd ..\..
+
