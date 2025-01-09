@@ -117,4 +117,6 @@ legend('Without treatment','Endostatin 1','Endostatin 2','Endostatin 3','Locatio
 saveas(gcf, 'Cum_numb_demo6', 'fig');
 saveas(gcf, 'Cum_numb_demo6', 'epsc');
 
+cd ..\..
+
 
