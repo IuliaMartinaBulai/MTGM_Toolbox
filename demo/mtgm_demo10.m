@@ -104,3 +104,5 @@ ylabel('Cumulative number')
 axis([0 360 0 10*10^12]);
 saveas(gcf, 'Cum_numb_demo10', 'fig');
 saveas(gcf, 'Cum_numb_demo10', 'epsc');
+
+cd ..\..
