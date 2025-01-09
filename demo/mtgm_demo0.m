@@ -67,3 +67,5 @@ ylabel('u(t)f_m(t)')
 saveas(gcf, 'vie_demo0', 'fig');
 saveas(gcf, 'vie_demo0', 'epsc');
 
+cd ..\..
+
