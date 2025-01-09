@@ -110,3 +110,5 @@ ylabel('Cumulative number')
 legend('Without treatment','CT + AA','AA + CT','Location','best');
 saveas(gcf, 'Cum_numb_demo8', 'fig');
 saveas(gcf, 'Cum_numb_demo8', 'epsc');
+
+cd ..\..
