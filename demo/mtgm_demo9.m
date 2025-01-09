@@ -117,3 +117,5 @@ legend('TPN-470','Endostatin','Angiostatin','Without treatment','Location','best
 axis([0 360 0 3.5*10^13]);
 saveas(gcf, 'Cum_numb_demo9', 'fig');
 saveas(gcf, 'Cum_numb_demo9', 'epsc');
+
+cd ..\..
