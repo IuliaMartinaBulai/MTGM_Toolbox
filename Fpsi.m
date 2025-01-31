@@ -1,8 +1,8 @@
 %----------------------------------------------------------------------------------------
 % File: Fpsi.m
 %
-% Goal: Compute the total metastatic mass, M, and the cumulative number of metastases,
-%       N, for the 2D non-autonomous case
+% Goal: Compute the total metastatic mass, M, and the cumulative number of 
+%       metastases, N, for the 2D non-autonomous case
 %
 % Use: [M,N] = Fpsi(T0,t,a,x,w,w1,E,E1,U,varargin)
 %
@@ -13,20 +13,21 @@
 %        w - row array of the corresponding Christoffel numbers
 %        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
 %        E - array exp(-x)
-%        E1 - array exp(-x1), with x1 array of the zeros of the M-th Laguerre polynomial
+%        E1 - array exp(-x1), with x1 array of the zeros of the M-th 
+%             Laguerre polynomial
 %        U - u(x), i.e weight function u computed ad the Laguerre zeros x
 %        varargin - see VieSolve.m
 %
-% Output: M -  1xT array of the approximate values of the metastatic mass at t = [1:T]
-%              days
-%         N - 1xT array of the approximate values of the cumulative number of metastases
-%              whose volume is larger than Vbar at  t = [1:T] days
+% Output: M - 1xT array of the approximate values of the metastatic mass 
+%              at t = [1:T] days
+%         N - 1xT array of the approximate values of the cumulative number 
+%             of metastases whose volume is larger than vbar at t = [1:T] days
 %
 % Recalls: tumorTreatmentParam.m, Fbeta.m, ode23t.m, odefun2Dm .m,
 %          odefun2Dp.m, characteristic.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
