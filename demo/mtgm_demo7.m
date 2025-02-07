@@ -9,7 +9,7 @@
 % growth models with treatment", IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -60,7 +60,7 @@ fprintf(' Index j and condition number C with No treatment \n');
 fprintf('Endostatine 20 mg \n');
 varargin_end_1 = {'treatment_type','end_1'};
 tic
-[M_end_1,N_end_1,j_end_1,C_end_1] =...
+[M_end_1,N_end_1,j_end_1,C_end_1] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_1{:}); 
 toc
 fprintf(' Index j and condition number C with Endostatine 20 mg \n');
@@ -70,7 +70,7 @@ fprintf(' Index j and condition number C with Endostatine 20 mg \n');
 fprintf('Endostatine 5 mg \n');
 varargin_end_2 = {'treatment_type','end_4'};
 tic
-[M_end_2,N_end_2,j_end_2,C_end_2] =...
+[M_end_2,N_end_2,j_end_2,C_end_2] = ...
    VieSolve(kind,T0,t,2^k,type_OB,varargin_end_2{:}); 
 toc
 fprintf(' Index j and condition number C with Endostatine 5 mg \n');
@@ -80,7 +80,7 @@ fprintf(' Index j and condition number C with Endostatine 5 mg \n');
 fprintf('Endostatine 10 mg \n');
 varargin_end_3 = {'treatment_type','end_5'};
 tic
-[M_end_3,N_end_3,j_end_3,C_end_3] =...
+[M_end_3,N_end_3,j_end_3,C_end_3] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_3{:}); 
 toc
 fprintf(' Index j and condition number C with Endostatine 10 mg \n');
@@ -90,7 +90,7 @@ fprintf(' Index j and condition number C with Endostatine 10 mg \n');
 fprintf('Endostatine 30 mg \n');
 varargin_end_4 = {'treatment_type','end_6'};
 tic
-[M_end_4,N_end_4,j_end_4,C_end_4] =...
+[M_end_4,N_end_4,j_end_4,C_end_4] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_4{:}); 
 toc
 fprintf(' Index j and condition number C with Endostatine 30 mg \n');
@@ -100,7 +100,7 @@ fprintf(' Index j and condition number C with Endostatine 30 mg \n');
 fprintf('Endostatine 40 mg \n');
 varargin_end_5 = {'treatment_type','end_7'};
 tic
-[M_end_5,N_end_5,j_end_5,C_end_5] =...
+[M_end_5,N_end_5,j_end_5,C_end_5] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_5{:}); 
 toc
 fprintf(' Index j and condition number C with Endostatine 40 mg \n');
@@ -135,6 +135,4 @@ legend('Without treatment','Dose = 5mg','Dose = 10mg','Dose = 20mg',...
     'Dose = 30mg','Dose = 40mg','Location','best');
 saveas(gcf, 'Cum_numb_demo7', 'fig');
 saveas(gcf, 'Cum_numb_demo7', 'epsc');
-
 cd ..\..
-

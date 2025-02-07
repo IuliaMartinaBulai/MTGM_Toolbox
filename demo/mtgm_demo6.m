@@ -9,7 +9,7 @@
 % growth models with treatment", IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -32,8 +32,7 @@ clear
 close all
 
 fprintf('Welcome to MTGM demo #6\n');
-fprintf(['Compute the metastatic mass, M(t), and the cumulative number of ' ...
-    'metastases, N(t) \n'])
+fprintf(['Compute the TMM, M(t), and the CNM, N(t) \n'])
 fprintf('2D non-autonomous model with treatment \n')
 addpath('..');
 addpath('../utils');
@@ -51,7 +50,7 @@ tic
 fprintf('No treatment \n');
 varargin_no_treat = {};
 tic
-[M_no_treat,N_no_treat,j_no_treat,C_no_treat] =...
+[M_no_treat,N_no_treat,j_no_treat,C_no_treat] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_no_treat{:}); 
 toc
 fprintf(' Index j and condition number C with No treatment \n');
@@ -62,7 +61,7 @@ fprintf(' Index j and condition number C with No treatment \n');
 fprintf('Endostatin 1 \n');
 varargin_end_1 = {'treatment_type','end_1'};
 tic
-[M_end_1,N_end_1,j_end_1,C_end_1] =...
+[M_end_1,N_end_1,j_end_1,C_end_1] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_1{:}); 
 toc
 fprintf(' Index j and condition number C with Endostatin 1 \n');
@@ -72,7 +71,7 @@ fprintf(' Index j and condition number C with Endostatin 1 \n');
 fprintf('Endostatin 2 \n');
 varargin_end_2 = {'treatment_type','end_2'};
 tic
-[M_end_2,N_end_2,j_end_2,C_end_2] =...
+[M_end_2,N_end_2,j_end_2,C_end_2] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_2{:}); 
 toc
 
@@ -83,7 +82,7 @@ fprintf(' Index j and condition number C with Endostatin 2 \n');
 fprintf('Endostatin 3 \n');
 varargin_end_3 = {'treatment_type','end_3'};
 tic
-[M_end_3,N_end_3,j_end_3,C_end_3] =...
+[M_end_3,N_end_3,j_end_3,C_end_3] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_3{:}); 
 toc
 
@@ -101,7 +100,8 @@ plot(t,M_no_treat,'b-*',t,M_end_1,'r-+',t,M_end_2,'k-o',...
 set(gca,'fontsize',16)
 xlabel('Time (days)')
 ylabel('Metastatic mass (volume)')
-legend('Without treatment','Endostatin 1','Endostatin 2','Endostatin 3','Location','best');
+legend('Without treatment','Endostatin 1','Endostatin 2','Endostatin 3', ...
+    'Location','best');
 axis([0 15 0 0.5])
 saveas(gcf, 'Met_mass_demo6', 'fig');
 saveas(gcf, 'Met_mass_demo6', 'epsc');
@@ -113,10 +113,9 @@ plot(t,N_no_treat,'b-*', t, N_end_1,'r-+',t,N_end_2,'k-o',t,...
 set(gca,'fontsize',16)
 xlabel('Time (days)')
 ylabel('Cumulative number')
-legend('Without treatment','Endostatin 1','Endostatin 2','Endostatin 3','Location','best');
+legend('Without treatment','Endostatin 1','Endostatin 2','Endostatin 3', ...
+    'Location','best');
 saveas(gcf, 'Cum_numb_demo6', 'fig');
 saveas(gcf, 'Cum_numb_demo6', 'epsc');
-
 cd ..\..
-
 

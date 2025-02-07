@@ -9,7 +9,7 @@
 % growth models with treatment", IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -32,8 +32,7 @@ clear
 close all
 
 fprintf('Welcome to MTGM demo #3\n');
-fprintf(['Compute the metastatic mass, M(t), and the cumulative number of ' ...
-    'metastases, N(t) \n'])
+fprintf(['Compute the TMM, M(t), and the CNM, N(t) \n'])
 fprintf('2D non-autonomous model without treatment \n')
 addpath('..');
 addpath('../utils');
@@ -75,9 +74,10 @@ err_rel_M_no_treat = abs(M_no_treat_0-M_no_treat)./abs(M_no_treat_0);
 err_rel_N_no_treat = abs(N_no_treat_0-N_no_treat)./abs(N_no_treat_0);
 
 
-errM_no_treat= max(err_rel_M_no_treat);
+errM_no_treat = max(err_rel_M_no_treat);
 errN_no_treat = max(err_rel_N_no_treat);
-fprintf('Error for metastatic mass and for cumulative number of metastases \n');
+fprintf(['Error for metastatic mass and for cumulative number of ' ...
+    'metastases \n']);
 [errM_no_treat, errN_no_treat]
 
 % change the directory to save the figures: 
@@ -101,5 +101,4 @@ xlabel('Time (days)')
 ylabel('Cumulative number')
 saveas(gcf, 'Cum_numb_demo3', 'fig');
 saveas(gcf, 'Cum_numb_demo3', 'epsc');
-
 cd ..\..

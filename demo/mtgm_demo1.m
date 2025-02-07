@@ -12,7 +12,7 @@
 %
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -38,8 +38,7 @@ fprintf('Welcome to MTGM demo #1\n');
 addpath('..');
 addpath('../utils');
 
-fprintf(['compute the metastatic mass, M(t), and the cumulative number of ' ...
-    'metastases, N(t) \n']);
+fprintf(['Compute the TMM, M(t), and the CNM, N(t) \n']);
 fprintf('Case study: breast \n');
 T = 60;
 T0 = 30;
@@ -50,16 +49,17 @@ varargin = {};
 
 tic
 type_OB = 1;
-fprintf('Compute the metastatic mass M \n');
+fprintf('Compute the TMM, M(t) \n');
 [M,~,j_M,C_M] = VieSolve(kind,T0,t,2^k,type_OB,varargin{:});
 type_OB = 2;
-fprintf('Compute the cumulative number of metastases N \n');
+fprintf('Compute the CNM, N(t) \n');
 [~,N,j_N,C_N] = VieSolve(kind,T0,t,2^k,type_OB,varargin{:});
 toc
 fprintf('Index j and condition number C for the metastatic mass M \n');
 [j_M, C_M]
 
-fprintf('Index j and condition number C for the cumulative number of metastases \n');
+fprintf(['Index j and condition number C for the cumulative number of ' ...
+    'metastases \n']);
 [j_N, C_N]
 
 % change the directory to save the figures: 
@@ -86,7 +86,5 @@ xlabel('Time (days)')
 ylabel('Cumulative number')
 saveas(gcf, 'Cum_numb_demo1', 'fig');
 saveas(gcf, 'Cum_numb_demo1', 'epsc');
-
 cd ..\..
-
 

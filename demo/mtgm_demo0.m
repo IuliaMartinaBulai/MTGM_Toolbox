@@ -4,7 +4,7 @@
 % This demo computes the weighted solution of a VIE
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -24,7 +24,7 @@
 clc
 clear
 close all
-
+tic
 fprintf('Welcome to VIE demo #0\n');
 addpath('..');
 addpath('../utils');
@@ -44,9 +44,7 @@ u = @(y) y.^(1/4).*exp(-y/2);
 varargin = {};
 k = 9;
 for i = 2:k-1
-    tic
     [M,~,j(i-1),C(i-1)] = VieSolve(kind,T0,t,2^k,type_OB,varargin{:});
-    toc
     err(i-1) = max(abs((f(t).*u(t))'-M));
 end
 fprintf('Index j, condition number and error\n')
@@ -66,5 +64,5 @@ xlabel('t')
 ylabel('u(t)f_m(t)')
 saveas(gcf, 'vie_demo0', 'fig');
 saveas(gcf, 'vie_demo0', 'epsc');
-
+toc
 cd ..\..

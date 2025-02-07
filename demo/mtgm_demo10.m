@@ -10,7 +10,7 @@
 % IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -104,5 +104,4 @@ ylabel('Cumulative number')
 axis([0 360 0 10*10^12]);
 saveas(gcf, 'Cum_numb_demo10', 'fig');
 saveas(gcf, 'Cum_numb_demo10', 'epsc');
-
 cd ..\..

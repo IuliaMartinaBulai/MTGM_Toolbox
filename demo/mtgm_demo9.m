@@ -10,7 +10,7 @@
 % IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -117,5 +117,4 @@ legend('TPN-470','Endostatin','Angiostatin','Without treatment','Location','best
 axis([0 360 0 3.5*10^13]);
 saveas(gcf, 'Cum_numb_demo9', 'fig');
 saveas(gcf, 'Cum_numb_demo9', 'epsc');
-
 cd ..\..

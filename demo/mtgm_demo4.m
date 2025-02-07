@@ -10,7 +10,7 @@
 % IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -33,8 +33,7 @@ clear
 close all
 
 fprintf('Welcome to MTGM demo #4\n');
-fprintf(['Compute the metastatic mass, M(t), and the cumulative number of ' ...
-    'metastases, N(t) \n'])
+fprintf(['Compute the TMM, M(t), and the CNM, N(t) \n'])
 fprintf('2D non-autonomous model with treatment \n')
 addpath('..');
 addpath('../utils');
@@ -73,8 +72,8 @@ fprintf(' Index j and condition number C with Endostatin 1 \n');
 fprintf('TNP-470 \n');
 varargin_TNP_470 = {'treatment_type','TNP-470'};
 tic
-[M_TNP_470,N_TNP_470,j_TNP_470,C_TNP_470]...
-    = VieSolve(kind,T0,t,2^k,type_OB,varargin_TNP_470{:});
+[M_TNP_470,N_TNP_470,j_TNP_470,C_TNP_470] = ...
+    VieSolve(kind,T0,t,2^k,type_OB,varargin_TNP_470{:});
 toc
 fprintf(' Index j and condition number C with TNP-470 \n');
 [j_TNP_470, C_TNP_470]
@@ -94,28 +93,28 @@ fprintf(' Index j and condition number C with Angiostatin \n');
 cd Figures
 
 % plot and save the results
-fprintf('Plot metastatic mass \n');
+fprintf('Compute the TMM, M(t) \n');
 figure
 plot(t,M_TNP_470,'r-+',t,M_end_1,'k-o', t,M_angiostatin,'m-^',...
     t,M_no_treat,'b-*', 'linewidth',2);
 set(gca,'fontsize',16)
 xlabel('Time (days)')
 ylabel('Metastatic mass (volume)')
-legend('TPN-470','Endostatin','Angiostatin','Without treatment','Location','best');
+legend('TPN-470','Endostatin','Angiostatin','Without treatment', ...
+    'Location','best');
 axis([0 15 0 1]);
 saveas(gcf, 'Met_mass_demo4', 'fig');
 saveas(gcf, 'Met_mass_demo4', 'epsc');
 
-fprintf('Plot cumulative number of metastases \n');
+fprintf('Compute the CNM, N(t) \n');
 figure
 plot(t, N_TNP_470,'r-+',t,N_end_1,'k-o', t, N_angiostatin,'m-^',...
     t,N_no_treat,'b-*','linewidth',2);
 set(gca,'fontsize',16)
 xlabel('Time (days)')
 ylabel('Cumulative number')
-legend('TPN-470','Endostatin','Angiostatin','Without treatment','Location','best');
+legend('TPN-470','Endostatin','Angiostatin','Without treatment', ...
+    'Location','best');
 saveas(gcf, 'Cum_numb_demo4', 'fig');
 saveas(gcf, 'Cum_numb_demo4', 'epsc');
-
 cd ..\..
-

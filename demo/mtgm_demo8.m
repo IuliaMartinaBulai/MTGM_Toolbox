@@ -10,7 +10,7 @@
 % growth models with treatment", IM Bulai, MC De Bonis, C Laurita, 2024.
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -51,7 +51,7 @@ type_OB = 0;
 tic
 fprintf('No treatment \n');
 varargin_no_treat = {};
-[M_no_treat,N_no_treat,j_no_treat,C_no_treat] =...
+[M_no_treat,N_no_treat,j_no_treat,C_no_treat] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_no_treat{:});
 toc
 fprintf(' Index j and condition number C with No treatment \n');
@@ -61,7 +61,7 @@ fprintf(' Index j and condition number C with No treatment \n');
 fprintf('AACT \n');
 varargin_end_AACT = {'treatment_type','AACT'};
 tic
-[M_end_AACT,N_end_AACT,j_end_AACT,C_end_AACT] =...
+[M_end_AACT,N_end_AACT,j_end_AACT,C_end_AACT] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_end_AACT{:});
 toc
 fprintf(' Index j and condition number C with AACT \n');
@@ -71,7 +71,7 @@ fprintf(' Index j and condition number C with AACT \n');
 fprintf('CTAA \n');
 varargin_CTAA = {'treatment_type','CTAA'};
 tic
-[M_CTAA,N_CTAA,j_CTAA,C_CTAA] =...
+[M_CTAA,N_CTAA,j_CTAA,C_CTAA] = ...
     VieSolve(kind,T0,t,2^k,type_OB,varargin_CTAA{:});
 toc
 fprintf(' Index j and condition number C with CTAA \n');
@@ -110,5 +110,4 @@ ylabel('Cumulative number')
 legend('Without treatment','CT + AA','AA + CT','Location','best');
 saveas(gcf, 'Cum_numb_demo8', 'fig');
 saveas(gcf, 'Cum_numb_demo8', 'epsc');
-
 cd ..\..
