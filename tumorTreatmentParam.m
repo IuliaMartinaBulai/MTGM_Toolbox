@@ -18,23 +18,26 @@
 %                   'vbar', vbar - lower bound of the volume of the metastases whose
 %                                  cumulative number N is computed
 %
-% Output: g - 1X4 cell with
+% Output: g - 1X3 cell with
 %             g{1} emission rate function for the primary tumor be_p
 %             g{2} emission rate function for the metastases be_m
 %             g{3} weight function u of the weighted space
-%         y0_p - [x0_p,theta0_p] initial conditions of the size of the tumor (x0_p) and
-%                of the variable carrying capacity (theta0_p) for the primary tumor
-%         y0_m - [x0_m,theta0_m] initial conditions of the size of the tumor (x0_m) and
-%                 of the variable carrying capacity (theta0_m) for the secondary tumor
-%         param - [DA, clrA, DC, clrC, a, cc, d, e, h, xmin, thetamin, timesA, timesC]
-%                  parameters related to the treatment type
-%         vbar - lower bound of the volume of the metastases whose cumulative number N
-%                is computed
+%         y0_p - [x0_p,theta0_p] initial conditions of the size of the 
+%                tumor (x0_p) and of the variable carrying capacity 
+%                (theta0_p) for the primary tumor
+%         y0_m - [x0_m,theta0_m] initial conditions of the size of the 
+%                tumor (x0_m) and of the variable carrying capacity 
+%                (theta0_m) for the secondary tumor
+%         param - [DA, clrA, DC, clrC, a, cc, d, e, h, xmin, thetamin, 
+%                 timesA, timesC] parameters related to the treatment type
+%         vbar - lower bound of the volume of the metastases whose 
+%                cumulative number N is computed
+%         options - integration settings for the ODE solver
 %
 % Recalls: argselectAssign.m, argselectCheck.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -65,16 +68,17 @@ x0_m = 10^-6;
 theta0_p = 625;
 y0_p = [x0_p, theta0_p];
 y0_m = [x0_m, theta0_p];
-vbar = 0;
+vbar = 10^-6;
 options = [];
 %options=odeset('Reltol',1e-10,'Abstol',1e-10);
+ 
+control_params = {'treatment_type', value1,'emission_p',mu_p,...
+    'emission_m',mu_m,'y0_p', [x0_p, theta0_p],'y0_m', [x0_m, theta0_p],... 
+    'vbar', vbar};
 
-control_params = {'treatment_type', value1,'emission_p',mu_p,'emission_m',mu_m,...
-    'y0_p', [x0_p, theta0_p],'y0_m', [x0_m, theta0_p], 'vbar', vbar};
 argselectAssign(control_params);
 argselectCheck(control_params,varargin);
 argselectAssign(varargin);
-
 % emission rate function for the primary tumor be_p
 g{1} = @(t) emission_p*t.^alpha;
 % emission rate function for the metastases be_m
@@ -107,7 +111,7 @@ switch treatment_type
         timesA = (5:2:15);
     case 'end_3'
         e = 0.66;
-        timesA=(5:0.5:7.5);
+        timesA = (5:0.5:7.5);
     case 'end_4'
         e = 0.66;
         DA = 5;

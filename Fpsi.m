@@ -9,7 +9,8 @@
 % Input: T0 - step for iteration
 %        t - row array of the evaluation points
 %        a - solution of the linear system
-%        x - row array of the zeros of the m-th Laguerre polynomial
+%        x - row array of the zeros of the m-th Laguerre polynomial with m
+%            the number of knots
 %        w - row array of the corresponding Christoffel numbers
 %        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
 %        E - array exp(-x)

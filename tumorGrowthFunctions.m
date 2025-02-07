@@ -13,11 +13,11 @@
 %                   'emission_m',mu_m - colonization coefficient of the metastases
 %                   'v_p0', vp0 - volume of the primary tumor at time  t= 0
 %                   'v_m0', vm0 - volume of the newly created metastases
-%                   'Vbar', vbar - lower bound of the volume of the metastases whose
+%                   'vbar', vbar - lower bound of the volume of the metastases whose
 %                                  cumulative number N is computed
 %                   'tumor_type',value3 - can assume values 'lung' and 'breast'
 %
-% Output: g - 1X4 cell with
+% Output: g - 1X4 cell with:
 %             g{1} integrand h(s,t) of the right-hand side of the VIE for computing the
 %             volume of the metastatic mass
 %             g{2} integrand h(s,t) of the right-hand side of the VIE for computing the
@@ -65,7 +65,7 @@ vm0 = 10^-6; % mm^3
 vbar = 10^-6; % mm^3
 control_params = {'grow_p',value1,'grow_m',value2, ...
     'emission_p',mu_p,'emission_m',mu_m,...
-    'v_p0', vp0,'v_m0', vm0,'Vbar', vbar,'tumor_type',value3};
+    'v_p0', vp0,'v_m0', vm0,'vbar', vbar,'tumor_type',value3};
 
 argselectAssign(control_params);
 argselectCheck(control_params,varargin);
@@ -86,12 +86,14 @@ switch tumor_type
                 a = 2555;
                 K = 4378;
                 nu = 1.4e-04;
-                vp = @(t) (v_p0*K/(v_p0^nu+(K^nu-v_p0^nu)*exp(-a*nu*t))^(1/nu));
+                vp = @(t) (v_p0*K/(v_p0^nu+(K^nu-v_p0^nu)* ...
+                    exp(-a*nu*t))^(1/nu));
             case 'von_bert'
                 a = 7.72;
                 gamm = 0.947;
                 b = 6.75;
-                vp = @(t) ((a/b+(v_p0^(1-gamm)-a/b)*exp(-b*(1-gamm)*t))^(1/(1-gamm)));
+                vp = @(t) ((a/b+(v_p0^(1-gamm)-a/b)* ...
+                    exp(-b*(1-gamm)*t))^(1/(1-gamm)));
             case 'power'
                 a = 0.921;
                 gamm = 0.788;
@@ -102,43 +104,48 @@ switch tumor_type
                 a = 0.743;
                 bet = 0.0792;
                 vm = @(t) (v_m0*exp(a*(1-exp(-bet*t))/bet));
-                if Vbar > v_m0*exp(a/bet) || Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                if vbar > v_m0*exp(a/bet) || vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = log (1-bet/a*log(Vbar/v_m0))/bet;
+                gamma = log (1-bet/a*log(vbar/v_m0))/bet;
             case 'exp'
                 a0 = 0.257;
                 vm = @(t) (v_m0*exp(a0*t));
                 if Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                    error('vbar not feasible');
                 end
-                gamma = -1/a0*log(Vbar/v_m0);
+                gamma = -1/a0*log(vbar/v_m0);
             case 'gen_log'
                 a = 2555;
                 K = 4378;
                 nu = 1.4e-04;
-                vm = @(t) (v_m0*K/(v_m0^nu+(K^nu-v_m0^nu)*exp(-a*nu*t))^(1/nu));
-                if (Vbar > K || v_m0>K)  || Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                vm = @(t) (v_m0*K/(v_m0^nu+(K^nu-v_m0^nu)* ...
+                    exp(-a*nu*t))^(1/nu));
+                if (vbar > K || v_m0>K)  || vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = log ((v_m0^nu*((K/Vbar)^nu-1))/(K^nu-v_m0^nu))/(a*nu);
+                gamma = log((v_m0^nu*((K/vbar)^nu-1))/(K^nu-v_m0^nu))/...
+                (a*nu);
             case 'von_bert'
                 a = 7.72;
                 gamm = 0.947;
                 b = 6.75;
-                vm = @(t) ((a/b+(v_m0^(1-gamm)-a/b)*exp(-b*(1-gamm)*t))^(1/(1-gamm)));
-                if (Vbar > (a/b)^(1/(1-gamm)) || v_m0 > (a/b)^(1/(1-gamm)) )  || Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                vm = @(t) ((a/b+(v_m0^(1-gamm)-a/b)* ...
+                    exp(-b*(1-gamm)*t))^(1/(1-gamm)));
+                if (vbar > (a/b)^(1/(1-gamm)) || v_m0 > ...
+                        (a/b)^(1/(1-gamm))) || vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = log ((a/b-Vbar^(1-gamm))/(a/b-v_m0^(1-gamm)))/(b*(1-gamm));
+                gamma = log ((a/b-vbar^(1-gamm))/(a/b-v_m0^(1-gamm)))/...
+                (b*(1-gamm));
             case 'power'
                 a = 0.921;
                 gamm = 0.788;
                 vm = @(t) ((v_m0^(1-gamm)+(1-gamm)*a*t)^(1/(1-gamm)));
-                if Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                if vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = (v_m0^(1-gamm)-Vbar^(1-gamm))/((1-gamm)*a);
+                gamma = (v_m0^(1-gamm)-vbar^(1-gamm))/((1-gamm)*a);
         end
     case 'breast'
         switch grow_p
@@ -154,12 +161,14 @@ switch tumor_type
                 a = 2753;
                 K = 1964;
                 nu = 2.68e-05;
-                vp = @(t) (v_p0*K/(v_p0^nu+(K^nu-v_p0^nu)*exp(-a*nu*t))^(1/nu));
+                vp = @(t) (v_p0*K/(v_p0^nu+(K^nu-v_p0^nu)* ...
+                    exp(-a*nu*t))^(1/nu));
             case 'von_bert'
                 a = 2.32;
                 gamm = 0.918;
                 b = 0.808;
-                vp = @(t) ((a/b+(v_p0^(1-gamm)-a/b)*exp(-b*(1-gamm)*t))^(1/(1-gamm)));
+                vp = @(t) ((a/b+(v_p0^(1-gamm)-a/b)* ...
+                    exp(-b*(1-gamm)*t))^(1/(1-gamm)));
             case 'power'
                 a = 1.32;
                 gamm = 0.58;
@@ -170,43 +179,48 @@ switch tumor_type
                 a = 0.56;
                 bet = 0.0719;
                 vm = @(t) (v_m0*exp(a*(1-exp(-bet*t))/bet));
-                if Vbar > v_m0*exp(a/bet) || Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                if vbar > v_m0*exp(a/bet) || vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = log (1-bet/a*log(Vbar/v_m0))/bet;
+                gamma = log (1-bet/a*log(vbar/v_m0))/bet;
             case 'exp'
                 a0 = 0.0846*s;
                 vm = @(t) (v_m0*exp(a0*t));
-                if Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                if vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = -1/a0*log(Vbar/v_m0);
+                gamma = -1/a0*log(vbar/v_m0);
             case 'gen_log'
                 a = 2753;
                 K = 1964;
                 nu = 2.68e-05;
-                vm = @(t) (v_m0*K/(v_m0^nu+(K^nu-v_m0^nu)*exp(-a*nu*t))^(1/nu));
-                if (Vbar > K || v_m0>K)  || Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                vm = @(t) (v_m0*K/(v_m0^nu+(K^nu-v_m0^nu)* ...
+                    exp(-a*nu*t))^(1/nu));
+                if (vbar > K || v_m0>K)  || vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = log ((v_m0^nu*((K/Vbar)^nu-1))/(K^nu-v_m0^nu))/(a*nu);
+                gamma = log ((v_m0^nu*((K/vbar)^nu-1))/(K^nu-v_m0^nu))/...
+                    (a*nu);
             case 'von_bert'
                 a = 2.32;
                 gamm = 0.918;
                 b = 0.808;
-                vm = @(t) ((a/b+(v_m0^(1-gamm)-a/b)*exp(-b*(1-gamm)*t))^(1/(1-gamm)));
-                if (Vbar > (a/b)^(1/(1-gamm)) || v_m0 > (a/b)^(1/(1-gamm)) )  || Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                vm = @(t) ((a/b+(v_m0^(1-gamm)-a/b)* ...
+                    exp(-b*(1-gamm)*t))^(1/(1-gamm)));
+                if (vbar > (a/b)^(1/(1-gamm)) || v_m0 > ...
+                        (a/b)^(1/(1-gamm)) )  || vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = log ((a/b-Vbar^(1-gamm))/(a/b-v_m0^(1-gamm)))/(b*(1-gamm));
+                gamma = log ((a/b-vbar^(1-gamm))/(a/b-v_m0^(1-gamm)))/...
+                    (b*(1-gamm));
             case 'power'
                 a = 1.32;
                 gamm = 0.58;
                 vm = @(t) ((v_m0^(1-gamm)+(1-gamm)*a*t)^(1/(1-gamm)));
-                if Vbar < v_m0
-                    error('V_{bar} not feasible ');
+                if vbar < v_m0
+                    error('vbar not feasible');
                 end
-                gamma = (v_m0^(1-gamm)-Vbar^(1-gamm))/((1-gamm)*a);
+                gamma = (v_m0^(1-gamm)-vbar^(1-gamm))/((1-gamm)*a);
         end
 end
 % emission rate function for the primary tumor

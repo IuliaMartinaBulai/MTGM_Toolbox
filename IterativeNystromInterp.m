@@ -1,9 +1,10 @@
 %----------------------------------------------------------------------------------------
 % File: IterativeNystromInterp.m
 %
-% Goal: Compute the Nystrom interpolants, solutions of VIEs, for Fbeta at the iteration step iter
+% Goal: Compute the Nystrom interpolants, solutions of VIEs, for Fbeta at 
+% the iteration step iter
 %
-% Use: [Fbeta] = IterativeNystromInterp(kind,T0,iter,t,a,x,w,w1,E,U,...
+% Use: [Fbeta] = IterativeNystromInterp(kind,T0,iter,t,a,x,w,w1,E1,U,...
 %                type_OB,varargin)
 %
 % Input: kind - see VieSolve.m file
@@ -11,21 +12,23 @@
 %        iter - number of iterations
 %        t - row array of the evaluation points
 %        a - solution of the linear system
-%        x - row array of the zeros of the m-th Laguerre polynomial
+%        x - row array of the zeros of the m-th Laguerre polynomial with m
+%            the number of knots
 %        w - row array of the corresponding Christoffel numbers
 %        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
-%        E - array exp(-x)
+%        E1 - array exp(-x1), with x1 array of the zeros of the M-th 
+%             Laguerre polynomial
 %        U - u(x), i.e weight function u computed ad the Laguerre zeros x
 %        type_OB - see VieSolve.m
 %        varargin - see VieSolve.m
 %
-% Output: Fbeta - array of the solution of the VIE at the evaluation points t at
-%                 the iteration step iter
+% Output: Fbeta - array of the solution of the VIE at the evaluation points 
+%                 t at the iteration step iter
 %
 % Recalls: K.m, cK.m, Gbeta.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -42,11 +45,11 @@
 % You should have received a copy of the GNU General Public License
 % along with the MTGM toolbox. If not, see <http://www.gnu.org/licenses/>.
 %--------------------------------------------------------------------------
-function [Fbeta] = IterativeNystromInterp(kind,T0,iter,t,a,x,w,w1,E,U,type_OB,varargin)
+function [Fbeta] = IterativeNystromInterp(kind,T0,iter,t,a,x,w,w1,E1,U,...
+                   type_OB,varargin)
 j = length(U);
 xn = x+iter*T0;
 tn = t+iter*T0;
-Y = tn.*E';
 % compute the modified moments
 KK = K(kind,xn(1:j),tn',varargin{:});
 C = KK.*cK(t,j,x,w,U);
@@ -59,5 +62,5 @@ for i = 0:iter-1
 end
 asol = a(iter*j+1:(iter+1)*j);
 % compute the Nystrom interpolant for Fbeta
-Fbeta = Gbeta(kind,tn,w1,Y,type_OB,varargin{:})'+H+C*asol;
+Fbeta = Gbeta(kind,tn,w1,E1,type_OB,varargin{:})'+H+C*asol;
 end

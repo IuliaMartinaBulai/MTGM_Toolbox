@@ -9,10 +9,12 @@
 %        T0 - step for iteration
 %        iter - number of iterations
 %        a - solution of the linear system
-%        x - row array of the zeros of the m-th Laguerre polynomial
+%        x - row array of the zeros of the m-th Laguerre polynomial with m
+%            the number of knots
 %        w - row array of the corresponding Christoffel numbers
 %        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
-%        E1 - array exp(-x1), with x1 array of the zeros of the M-th Laguerre polynomial
+%        E1 - array exp(-x1), with x1 array of the zeros of the M-th 
+%             Laguerre polynomial
 %        U - u(x), i.e weight function u computed ad the Laguerre zeros x
 %        c - matrix (c_k(t_i))_{i = 1,...,length(t), k = 1,...,j}
 %        type_OB - see VieSolve.m
@@ -24,7 +26,7 @@
 % Recalls: K.m, cK.m, Gbeta.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -44,7 +46,6 @@
 function [A,b] = SystemBuild(kind,T0,iter,a,x,w,w1,E1,U,c,type_OB,varargin)
 j = length(U);
 xn = x+iter*T0;
-Y = xn(1:j).*E1';
 % build the matrix A of the linear system
 KK = K(kind,xn(1:j),xn(1:j)',varargin{:});
 A = eye(j)-KK.*c.*U';
@@ -57,5 +58,5 @@ for i = 0:iter-1
     H = H+Kmat*(cc.*a(i*j+1:(i+1)*j));
 end
 
-b = ((Gbeta(kind,xn(1:j),w1,Y,type_OB,varargin{:})+H').*U)';
+b = ((Gbeta(kind,xn(1:j),w1,E1,type_OB,varargin{:})+H').*U)';
 end

@@ -9,21 +9,23 @@
 %        T0 - step for iteration
 %        t - row array of the evaluation points
 %        a - solution of the linear system
-%        x - row array of the zeros of the m-th Laguerre polynomial
+%        x - row array of the zeros of the m-th Laguerre polynomial with m
+%            the number of knots
 %        w - row array of the corresponding Christoffel numbers
 %        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
-%        E1 - array exp(-x1), with x1 array of the zeros of the M-th Laguerre polynomial
+%        E1 - array exp(-x1), with x1 array of the zeros of the M-th 
+%             Laguerre polynomial
 %        U - u(x), i.e weight function u computed ad the Laguerre zeros x
 %        c - matrix (c_k(t_i))_{i = 1,...,length(t), k = 1,...,j}
 %        type_OB - see VieSolve.m
 %        varargin - see VieSolve.m
 %
-% Output: Fbeta - array of the solution of the VIE at the evaluation points t
+% Output: fbeta - array of the solution of the VIE at the evaluation points t
 %
 % Recalls: IterativeNystromInterp.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -45,7 +47,7 @@ function [fbeta] = Fbeta(kind,T0,t,a,x,w,w1,E1,U,type_OB,varargin)
 mm = length(t);
 fbeta = zeros(mm,1);
 % determine the number iter of iterations required for the computation of 
-% fbeta at any evaluation time t(i), i=1:mm. 
+% fbeta at any evaluation time t(i), i = 1:mm. 
 % The iterative method is applied when t(i) > T0
 for i = 1:mm
     if t(i) <= T0
@@ -60,5 +62,6 @@ for i = 1:mm
     end
     y = t(i)-iter*T0;
     % Compute fbeta using the Nystrom interpolant
-    [fbeta(i)] = IterativeNystromInterp(kind,T0,iter,y,a,x,w,w1,E1,U,type_OB,varargin{:});
+    [fbeta(i)] = IterativeNystromInterp(kind,T0,iter,y,a,x,w,w1,E1,U,...
+        type_OB,varargin{:});
 end

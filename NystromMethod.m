@@ -16,8 +16,9 @@
 %        m - number of knots
 %        x - row array of the zeros of the m-th Laguerre polynomial
 %        w - row array of the corresponding Christoffel numbers
-%        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
-%        E1 - array exp(-x1), with x1 array of the zeros of the M-th Laguerre polynomial
+%        w1 - weights of the M-point Gauss-Laguerre rule with M = 2048
+%        E1 - array exp(-x1), with x1 array of the zeros of the M-th 
+%             Laguerre polynomial
 %        U - u(x), i.e weight function u computed ad the Laguerre zeros x
 %        type_OB - see VieSolve.m
 %        varargin - see VieSolve.m
@@ -31,7 +32,7 @@
 % Recalls: cK.m, SystemBuild.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -52,17 +53,17 @@
 function [a,C] = NystromMethod(kind,T0,iter,a,m,x,w,w1,E1,U,type_OB,varargin)
 theta = 0.25;
 j = length(U);
-% for n<=1024 upload c (previously computed and saved as .mat) otherwise
+% for m <= 1024 upload c (previously computed and saved as .mat) otherwise
 % compute it using the function cK.m
-if (m==64 && theta==0.25)
+if (m == 64 && theta == 0.25)
     c = importdata('c64.mat');
-elseif (m==128 && theta==0.25)
+elseif (m == 128 && theta == 0.25)
     c = importdata('c128.mat');
-elseif (m==256 && theta==0.25)
+elseif (m == 256 && theta == 0.25)
     c = importdata('c256.mat');
-elseif (m==512 && theta==0.25)
+elseif (m == 512 && theta == 0.25)
     c = importdata('c512.mat');
-elseif (m==1024 && theta==0.25)
+elseif (m == 1024 && theta == 0.25)
     c = importdata('c1024.mat');
 else
     [c] = cK(x(1:j),j,x,w,U);

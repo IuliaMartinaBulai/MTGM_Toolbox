@@ -1,8 +1,8 @@
 %----------------------------------------------------------------------------------------
 % File: IterativeSolutions.m
 %
-% Goal: Compute the solutions of the linear systems and their condition numbers 
-%       at the iteration step iter+1
+% Goal: Compute the solutions of the linear systems and their condition 
+%       numbers at the iteration step iter+1
 %
 % Use: [a,C] = IterativeSolutions(kind,T0,T,m,x,w,w1,E1,U,type_OB,varargin)
 %
@@ -13,7 +13,8 @@
 %        x - row array of the zeros of the m-th Laguerre polynomial
 %        w - row array of the corresponding Christoffel numbers
 %        w1 - weights of the M-point Gauss-Laguerre rule with with M = 2048
-%        E1 - array exp(-x1), with x1 array of the zeros of the M-th Laguerre polynomial
+%        E1 - array exp(-x1), with x1 array of the zeros of the M-th 
+%             Laguerre polynomial
 %        U - u(x), i.e weight function u computed ad the Laguerre zeros x
 %        type_OB - see VieSolve.m
 %        varargin - see VieSolve.m
@@ -26,7 +27,7 @@
 % Recalls: NystromMethod.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
@@ -47,12 +48,18 @@ function [a,C] = IterativeSolutions(kind,T0,T,m,x,w,w1,E1,U,type_OB,varargin)
 if T <= T0
     [a,C] = NystromMethod(kind,0,0,[],m,x,w,w1,E1,U,type_OB,varargin{:});
 else 
-    disp('Number of iterations');
-    iter = (T-mod(T,T0))/T0-1
+    iter = (T-mod(T,T0))/T0-1;
+    if mod(T,iter*T0) == 0
+        fprintf('Number of iterations \n');
+        fprintf('iter = %d\n', iter);
+    else
+        fprintf('Number of iterations \n');
+        fprintf('iter = %d\n', iter+1);
+    end
     [a] = NystromMethod(kind,0,0,[],m,x,w,w1,E1,U,type_OB,varargin{:});
     for i = 1:iter  
-        disp('Iteration step');
-        i
+        fprintf('Iteration step \n');
+        fprintf('i = %d\n', i);
         [a,C] = NystromMethod(kind,T0,i,a,m,x,w,w1,E1,U,type_OB,varargin{:});    
     end
     if mod(T,T0) ~= 0
