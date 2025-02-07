@@ -26,13 +26,13 @@
 % Recalls:gamma.m
 %
 % Authors:
-% Date last modified: March, 2024
+% Date last modified: January, 2025
 %--------------------------------------------------------------------------
 function [a,b,muzero] = class1(kind,n,alpha,beta)
 nm1 = n - 1 ;
 
 % kind = 1: legendre polynomials p(x) on (-1, +1), w(x) = 1.
-if kind==1
+if kind == 1
     muzero = 2.0;
     for   i = 1: nm1
         a(i) = 0.0;
@@ -43,7 +43,7 @@ if kind==1
 
     % kind = 2: chebyshev polynomials of the first kind t(x) on (-1, +1),
     % w(x) = 1 / sqrt(1 - x*x)
-elseif kind==2
+elseif kind == 2
     muzero = pi;
     for   i = 1: nm1
         a(i) = 0.0;
@@ -54,7 +54,7 @@ elseif kind==2
 
     % kind = 3: chebyshev polynomials of the second kind u(x) on (-1, +1),
     % w(x) = sqrt(1 - x*x)
-elseif kind==3
+elseif kind == 3
     muzero = pi/2.0;
     for  i = 1 : nm1
         a(i) = 0.0d0 ;
@@ -64,7 +64,7 @@ elseif kind==3
 
     % kind = 4: hermite polynomials h(x) on (-infinity,+infinity),
     % w(x) = exp(-x**2)
-elseif kind==4
+elseif kind == 4
     muzero = sqrt(pi);
     for i = 1 : nm1
         a(i) = 0.0;
@@ -74,7 +74,7 @@ elseif kind==4
 
     % kind = 5:  jacobi polynomials p(alpha, beta)(x) on (-1, +1),
     % w(x) = (1-x)**alpha + (1+x)**beta, alpha and beta greater than -1
-elseif kind==5
+elseif kind == 5
     ab = alpha + beta;
     abi = 2.0 + ab;
     muzero = 2.0^(ab+1.)*gamma(alpha+1)*gamma(beta+1) / gamma(abi);

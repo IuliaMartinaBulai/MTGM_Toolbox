@@ -16,7 +16,7 @@
 % Recalls: heaviside.m, subplus.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % The MTGM toolbox is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by the
@@ -33,7 +33,7 @@
 
 function [dy] = odefun2Dp(t,y,par)
 
-if length(par)==21
+if length(par) == 21
     DA = par(1);
     clrA = par(2);
     DC = par(3);

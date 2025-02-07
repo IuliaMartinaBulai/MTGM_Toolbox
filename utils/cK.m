@@ -10,7 +10,7 @@
 %
 % Input: t - row array of evaluation points
 %        j - size of the solved linear system
-%        x - row array of the zeros of the m-th Laguerre polynomial
+%        x - row array of the zeros of the n-th Laguerre polynomial
 %        w - row array of the corresponding Christoffel numbers
 %        U - u(x), i.e weight function u computed at the Laguerre zeros x
 %
@@ -19,7 +19,7 @@
 % Recalls: class1.m, laguerre.m
 %
 % Authors: IM Bulai, MC De Bonis, C Laurita
-% Date last modified: July, 2024
+% Date last modified: January, 2025
 %
 % This file is part of the MTGM toolbox
 % Copyright (C) 2024, IM Bulai, MC De Bonis, C Laurita.
